@@ -1,0 +1,100 @@
+@use './vars' as v;
+
+body{
+
+	background-color: #fff;
+
+	& .card{
+
+		& .col{
+
+			& .row{
+				margin-left: -#{v.$gutter-width};
+				margin-right: -#{v.$gutter-width};
+			}
+		}
+	}
+
+	& .margin-bottom{
+		margin-bottom: v.$gutter-width;
+	}
+
+	& .swiper-button-disabled{
+		background-color: rgba(v.$primary, .2) !important;
+		cursor: not-allowed;
+	}
+
+	.swiper-pagination{
+
+		display: flex;
+		justify-content: center;
+
+		&-bullet{
+			display: inline-block;
+			width: 24px;
+			aspect-ratio: 1 / 1;
+			position: relative;
+			cursor: pointer;
+
+			&:before{
+				content: '';
+				display: block;
+				position: absolute;
+				inset: 6px;
+				border-radius: 50%;
+				transition: background-color .2s;
+				background-color: rgba(v.$primary, .2);
+			}
+
+			&-active:before{
+				background-color: v.$primary;
+			}
+
+			&:not(.swiper-pagination-bullet-active):hover:before{
+				background-color: rgba(v.$primary, .5);
+			}
+		}
+	}
+
+	& .bttn{
+		display: inline-block;
+		white-space: nowrap;
+		line-height: 3em;
+		padding: 0 2em;
+		background-color: v.$primary;
+		color: #fff;
+		border-radius: clamp(6px, .5vw, 10px);
+		transition: background-color .2s;
+
+		&-white{
+			@extend .bttn;
+			background-color: #fff;
+			color: v.$text;
+		}
+
+		&-outlined{
+			@extend .bttn;
+			background-color: transparent;
+			color: v.$primary;
+			border: 1px solid v.$primary;
+
+			&:hover{
+				background-color: rgba(black, .05);
+			}
+
+			&-white{
+				@extend .bttn-outlined;
+				color: #fff;
+				border-color: #fff;
+			}
+		}
+	}
+
+	& .chip{
+		display: inline-block;
+		line-height: 2em;
+		padding: 0 .75em;
+		border-radius: 2em;
+		white-space: nowrap;
+	}
+}

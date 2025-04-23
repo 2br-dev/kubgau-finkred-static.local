@@ -1,0 +1,77 @@
+@use './vars' as v;
+
+footer{
+
+	background-color: v.$primary;
+	padding: 4vmax 0;
+	color: #fff;
+
+	& a{
+		color: #fff;
+		text-decoration: underline;
+
+		&.bttn-white{
+			line-height: 3em;
+			display: inline-block;
+			// padding: 0 2em;
+			text-decoration: none;
+			color: v.$primary;
+			background-color: rgba(#fff, .8);
+			transition: background-color .2s;
+			margin-bottom: v.$gutter-width;
+			
+			&:hover{
+				background-color: #fff;
+			}
+		}
+		
+		&.bttn-outlined{
+			line-height: 3em;
+			box-shadow: 0 0 0 1px #fff inset;
+			border: 0;
+			text-decoration: none;
+			color: #fff;
+			background-color: transparent;
+			display: inline-block;
+			transition: background-color .2s;
+			margin-bottom: v.$gutter-width;
+			
+			& i{
+				font-style: normal;
+			}
+
+			&:before{
+				content: '';
+				padding-left: 1.5em;
+				display: inline-block;
+				aspect-ratio: 1 / 1;
+				margin-right: 6px;
+				background-image: url(../img/gerb.svg);
+				transform: translateY(.5em);
+			}
+
+			@media(max-width: v.$small){
+
+				& span{
+					display: none;
+				}
+			}
+
+			@media(max-width: v.$extra-small){
+
+
+				& i{
+					display: none;
+				}
+			}
+
+			&:hover{
+				background-color: rgba(#fff, .2);
+			}
+		}
+	}
+
+	& .row:last-of-type{
+		margin: 0;
+	}
+}
