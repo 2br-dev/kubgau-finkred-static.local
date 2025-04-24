@@ -379,7 +379,10 @@ section#countdown .countdown-card .info-wrapper .points .point {
 
 section#countdown .countdown-card .info-wrapper .points .point big {
     display: block;
-    margin-bottom: 20px;
+}
+
+section#countdown .countdown-card .info-wrapper .points .point big ~ span {
+    color: #888;
 }
 
 @media (min-width: 850px) {
@@ -395,7 +398,7 @@ section#countdown .countdown-card .info-wrapper .points .point img {
 }
 
 section#countdown .countdown-card .info-wrapper .points .point p:first-of-type {
-    margin-top: 0;
+    margin-top: 10px;
 }
 
 section#countdown .countdown-card .info-wrapper .points .point:first-of-type p {
@@ -412,6 +415,7 @@ section#countdown .countdown-card .info-wrapper .points .point:first-of-type p {
 @media (max-width: 400px) {
     section#countdown .countdown-card .info-wrapper .points .point {
         flex-direction: column;
+        gap: 0;
     }
 }
 
@@ -612,7 +616,7 @@ section#countdown .countdown-card .countdown-wrapper {
     padding: clamp(10px, 3vw, 30px);
     box-sizing: border-box;
     display: flex;
-    gap: clamp(20px, 3vw, 30px);
+    gap: clamp(5px, 3vw, 30px);
 }
 
 @media (max-width: 1500px) {
@@ -625,7 +629,13 @@ section#countdown .countdown-card .countdown-wrapper {
 section#countdown .countdown-card .countdown-wrapper .countdown-container {
     display: flex;
     align-items: center;
-    padding: 10px clamp(10px, 3vw, 40px);
+    padding: 10px clamp(1px, 2vw, 40px);
+}
+
+@media (max-width: 600px) {
+    section#countdown .countdown-card .countdown-wrapper .countdown-container {
+        padding: 0;
+    }
 }
 
 section#countdown .countdown-card .countdown-wrapper .countdown-container [id], section#countdown .countdown-card .countdown-wrapper .countdown-container span {
@@ -633,6 +643,19 @@ section#countdown .countdown-card .countdown-wrapper .countdown-container [id], 
     font-size: clamp(32px, 6vw, 72px);
     width: 1.5em;
     text-align: center;
+    line-height: 1em;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+@media (max-width: 850px) {
+    section#countdown .countdown-card .countdown-wrapper .countdown-container [id], section#countdown .countdown-card .countdown-wrapper .countdown-container span {
+        flex-direction: column;
+    }
+}
+
+section#countdown .countdown-card .countdown-wrapper .countdown-container [id] .prefix, section#countdown .countdown-card .countdown-wrapper .countdown-container span .prefix {
+    font-size: clamp(12px, 1.5vw, 14px);
     line-height: 1em;
 }
 
@@ -732,7 +755,7 @@ section#info .info-card#card2 h3, section#info .info-card#mobile-card2 h3 {
 section#info .info-card#card2 img, section#info .info-card#mobile-card2 img {
     position: absolute;
     right: 0;
-    bottom: -10%;
+    bottom: -8%;
     display: block;
     width: 50%;
 }
@@ -1025,7 +1048,7 @@ section#map .point-wrapper .point .popup:not(:empty) {
     transition: transform 0.2s, opacity 0.2s;
     opacity: 0;
     pointer-events: none;
-    min-width: 180px;
+    min-width: 170px;
     z-index: 5;
 }
 
@@ -1701,99 +1724,137 @@ section#contacts .icon-whatsapp {
 section#contacts .card {
     background-color: #fff;
     border-radius: clamp(15px, 3vw, 30px);
-    padding: clamp(20px, 3vw, 30px);
-    font-size: 18;
-    line-height: 1.2em;
-    color: #0E5A67;
+    padding: clamp(10px, 3vw, 30px);
     margin-bottom: 3vmax;
-}
-
-section#contacts .card .person-wrapper {
     display: flex;
-    align-items: center;
-    gap: 20px;
+    gap: clamp(10px, 3vw, 30px);
 }
 
-@media (max-width: 1400px) {
-    section#contacts .card .person-wrapper {
+section#contacts .card .avatar-wrapper {
+    gap: clamp(10px, 2vw, 20px);
+}
+
+section#contacts .card .avatar-wrapper .avatar {
+    border-radius: clamp(8px, 2vw, 20px);
+    height: auto;
+    width: clamp(84px, 10vw, 120px);
+}
+
+section#contacts .card .avatar-wrapper .avatar-name {
+    font-size: clamp(16px, 3.5vw, 36px);
+    color: #0E5A67;
+}
+
+section#contacts .card .content-wrapper .position {
+    font-size: clamp(14px, 2vw, 18px);
+    color: #888;
+    line-height: 1.4em;
+}
+
+section#contacts .card .content-wrapper .info-name {
+    color: #0E5A67;
+}
+
+section#contacts .card .content-wrapper .info-name big {
+    display: block;
+    font-size: clamp(16px, 3.5vw, 36px);
+    margin: 0.5em 0;
+}
+
+section#contacts .card .content-wrapper .intro {
+    color: #333;
+    font-size: clamp(16px, 1.5vw, 24px);
+    line-height: 1.4em;
+}
+
+section#contacts .card .content-wrapper .contacts-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    -moz-column-gap: 60px;
+    column-gap: 60px;
+    row-gap: 20px;
+    width: -moz-fit-content;
+    width: fit-content;
+}
+
+section#contacts .card .content-wrapper .contacts-wrapper:before {
+    content: "";
+    display: block;
+    grid-column: span 2;
+    width: 70%;
+    border-top: 1px solid #888;
+    margin: 20px 0;
+}
+
+section#contacts .card .content-wrapper .contacts-wrapper li:nth-child(1) {
+    order: 0;
+}
+
+section#contacts .card .content-wrapper .contacts-wrapper li:nth-child(3) {
+    order: 1;
+}
+
+section#contacts .card .content-wrapper .contacts-wrapper li:nth-child(2) {
+    order: 2;
+}
+
+section#contacts .card .content-wrapper .contacts-wrapper li:nth-child(4) {
+    order: 4;
+}
+
+section#contacts .card .content-wrapper .contacts-wrapper a {
+    color: #333;
+    display: flex;
+    gap: 6px;
+    font-size: clamp(18px, 1.5vw, 24px);
+    color: #0E5A67;
+    white-space: nowrap;
+}
+
+@media (max-width: 2200px) {
+    section#contacts .card {
         flex-direction: column;
-        justify-content: flex-start;
+    }
+
+    section#contacts .card .avatar-wrapper {
+        display: flex;
+        align-items: center;
+    }
+
+    section#contacts .card .avatar-wrapper .avatar-name {
+        display: initial;
+    }
+
+    section#contacts .card .info-name {
+        display: none;
+    }
+
+    section#contacts .card .position {
+        margin-bottom: 20px;
+    }
+}
+
+@media (min-width: 2000px) {
+    section#contacts .card .avatar-name {
+        display: none;
+    }
+}
+
+@media (max-width: 550px) {
+    section#contacts .card .content-wrapper .contacts-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    section#contacts .card .content-wrapper .contacts-wrapper:before {
+        grid-column: 1/2;
+    }
+}
+
+@media (max-width: 320px) {
+    section#contacts .card .avatar-wrapper {
+        flex-direction: column;
         align-items: flex-start;
     }
-}
-
-section#contacts .card .person-wrapper img {
-    border-radius: clamp(7px, 1.5vw, 15px);
-}
-
-section#contacts .card .person-wrapper .name {
-    font-size: 26px;
-    line-height: 1.2em;
-    font-weight: bold;
-    color: #0E5A67;
-}
-
-section#contacts .card .contacts-wrapper {
-    display: flex;
-    margin-top: 20px;
-    gap: 20px;
-}
-
-@media (max-width: 1800px) {
-    section#contacts .card .contacts-wrapper {
-        flex-direction: column;
-    }
-}
-
-section#contacts .card .contacts-wrapper .intro {
-    width: 60%;
-}
-
-@media (max-width: 1800px) {
-    section#contacts .card .contacts-wrapper .intro {
-        width: 100%;
-    }
-}
-
-section#contacts .card .contacts-wrapper .contacts {
-    width: 40%;
-}
-
-@media (max-width: 1800px) {
-    section#contacts .card .contacts-wrapper .contacts {
-        width: 100%;
-    }
-}
-
-section#contacts .card .contacts-wrapper .contacts ul {
-    margin-top: 0;
-}
-
-section#contacts .card .contacts-wrapper .contacts ul a {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    line-height: 1.4em;
-    color: #0E5A67;
-}
-
-section#contacts .card .contacts-wrapper .contacts .messangers a {
-    color: #fff;
-    display: inline-flex;
-    width: 3rem;
-    height: 3rem;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    font-size: 1.7rem;
-}
-
-section#contacts .card .contacts-wrapper .contacts .messangers a.tg {
-    background-color: #26A5E4;
-}
-
-section#contacts .card .contacts-wrapper .contacts .messangers a.wa {
-    background-color: #29A71A;
 }
 
 section#contacts .uge-wrapper h2 {
