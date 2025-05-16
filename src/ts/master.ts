@@ -36,6 +36,28 @@ let isScrollingRight:boolean;
 		}
 	}) : null;
 
+	const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+	
+	let threshold:number;
+
+	if(isMobile){
+		threshold = .3
+	}else{
+		if( ( window.innerWidth <= 800 ) && ( window.innerHeight <= 800 ) ){
+			threshold = .3
+		}else{
+			threshold = .5
+		}
+	}
+
+	// observer.observe(document.querySelector('section'));
+	document.querySelectorAll('section').forEach(section => {
+		let observer = new IntersectionObserver(intersector, {
+			threshold: threshold
+		})
+		observer.observe(section);
+	})
+
 	new Lazy(null, document.querySelectorAll('.lazy'));
 	M.Sidenav.init(document.querySelectorAll('.sidenav'), {
 		edge: 'right'
@@ -67,6 +89,16 @@ let isScrollingRight:boolean;
 	renderTracks();
 
 })();
+
+function intersector(entries:IntersectionObserverEntry[], observer:IntersectionObserver){
+	entries.forEach(entry => {
+		if(entry.isIntersecting){
+			(entry.target as HTMLElement).classList.add('in-sight');
+		// }else{
+		// 	(entry.target as HTMLElement).classList.remove('in-sight');
+		}
+	})
+}
 
 function clearActive(){
 	document.querySelector('.members')?.classList.remove('animated');
@@ -181,7 +213,13 @@ function initCounter()
 
 	if(timeDiff <= 0){
 		// Скрываем счётчик, и отображаем уведомление о том, что приём начался
-		$('.counter').hide();
+		$('.countdown-container').hide();
+		$('.countdown-wrapper').remove();
+		$('.members-wrapper').css({
+			borderBottomRightRadius: 'clamp(15px, 3vw, 30px)'
+		})
+
+		return;
 	}
 
 	// Вычисляем количество дней, часов, минут и секунд до достижения цели
@@ -245,7 +283,7 @@ function loadScript(url: string, callback: () => any) {
 
 function initMap()
 {
-	loadScript('https://api-maps.yandex.ru/2.1/?lang=ru_RU', () => {
+	loadScript('https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=a809ef57-6533-463f-88f3-5c8192cd3f7b', () => {
 
 		const map = document.querySelector('#ymap') as HTMLElement;
 

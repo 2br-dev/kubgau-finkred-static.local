@@ -6070,7 +6070,7 @@ body h3 {
     font-size: clamp(20px, 3vw, 40px);
 }
 
-body big {
+body .big {
     font-size: clamp(18px, 2vw, 32px);
 }
 

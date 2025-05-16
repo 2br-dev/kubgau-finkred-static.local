@@ -10,6 +10,8 @@ h2, h3{
 $minPad: 20px;
 $maxPad: 30px;
 
+$duration: .6;
+
 @mixin card{
 	padding: clamp($minPad, 3vw, $maxPad);
 	border-radius: clamp(15px, 3vw, 30px);
@@ -114,7 +116,7 @@ section{
 						display: flex;
 						flex-direction: column;
 
-						& big{
+						& .big{
 							display: block;
 							// margin-bottom: 20px;
 
@@ -214,7 +216,7 @@ section{
 							display: block;
 						}
 						
-						& big{
+						& .big{
 							font-size: clamp(18px, 3.5vw, 24px);
 							white-space: nowrap;
 						}
@@ -416,7 +418,143 @@ section{
 		}
 	}
 
+	&#preza{
+
+		background-color: #fff;
+		position: relative;
+		overflow: hidden;
+		padding: 8vmax 0;
+
+		&:before{
+			content: '';
+			display: block;
+			position: absolute;
+			top: 15vw;
+			left: 15vw;
+			width: 70vw;
+			aspect-ratio: 1 / 1;
+			transition: transform .8s;
+			transform: translate(-50%, -50%) scale(0);
+			border-radius: 50%;
+			background-color: v.$primary;
+			z-index: 0;
+
+			@media(max-width: v.$large){
+				left: 50%;
+				width: 300vw;
+			}
+		}
+
+		& .row{
+			position: relative;
+			z-index: 1;
+			color: #fff;
+
+			& h2{
+				color: #fff;
+				margin-top: 0;
+			}
+
+			& p{
+				margin-top: 0;
+			}
+		}
+
+		& .video-wrapper{
+			width: 100%;
+			aspect-ratio: 16 / 9;
+			position: relative;
+
+			@media(max-width: v.$large){
+				margin-top: 4vw;
+			}
+
+			&:before{
+				content: '';
+				display: block;
+				position: absolute;
+				width: 12%;
+				aspect-ratio: 16 / 9;
+				transform: translate(0, 0) scale(.7);
+				transition: transform .4s, opacity .2s;
+				border-radius: clamp(6px, 1.5vw, 12px);
+				background-color: #9DD800;
+				pointer-events: none;
+				opacity: 0;
+				z-index: 2;
+			}
+
+			
+			&:after{
+				content: '';
+				display: block;
+				position: absolute;
+				z-index: -1;
+				width: 70%;
+				aspect-ratio: 16 / 9;
+				background-color: #F6FFDE;
+				bottom: 0;
+				right: 0;
+				transform: none;
+				transition: transform .4s;
+				border-radius: clamp(12px, 6vw, 24px);
+			}
+
+			& iframe{
+				border: 0;
+				border-radius: clamp(10px, 2vw, 20px);
+				width: 100%;
+				height: 100%;
+				display: block;
+				transition: transform .4s, opacity .2s;
+				transform: scale(.9);
+				opacity: 0;
+			}
+		}
+		
+		&.in-sight{
+
+			
+			&:before{
+				transform: translate(-50%, -50%) scale(1);
+			}
+
+			& .video-wrapper{
+
+				&:before{
+					transform: scale(1) translate(-30px, -30px);
+					opacity: 1;
+
+					@media(max-width: v.$medium){
+						transform: translate(-10px, -10px) scale(1);
+					}
+				}
+
+				&:after{
+					transform: translate(100px, 100px);
+					
+					@media(max-width: v.$large){
+						transform: translate(50px, 50px);
+					}
+				}
+			}
+
+
+			& .video-wrapper iframe{
+				transform: none;
+				opacity: 1;
+			}
+		}
+	}
+
 	&#info{
+
+		overflow: hidden;
+		
+		& .container, & .row, & .col{
+			transform-style: preserve-3d;
+			perspective: 200vw;
+		}
 
 		& .info-card{
 
@@ -428,6 +566,8 @@ section{
 				color: #fff;
 			}
 
+			$angle: 20;
+
 			&#card1{
 				width: 100%;
 				aspect-ratio: 1.8 / 1;
@@ -437,6 +577,10 @@ section{
 				background-size: contain;
 				color: #fff;
 				padding-right: 40%;
+				transform-origin: bottom right;
+				transform: translateX(-3vw);
+				transition: transform #{$duration}s, opacity #{$duration}s;
+				opacity: 0;
 
 				@media(max-width: 600px){
 					aspect-ratio: unset;
@@ -478,6 +622,10 @@ section{
 				padding-bottom: 30%;
 				background-image: linear-gradient(to bottom right, #FF4D00, #FF9500);
 				color: #fff;
+				transform-origin: top left;
+				transform: translatex(3vw);
+				transition: transform #{$duration}s, opacity #{$duration}s;
+				opacity: 0;
 
 				& h3{
 					font-size: clamp(28px, 2.5vw, 32px);
@@ -498,6 +646,10 @@ section{
 				background-image: url('../../img/info3.jpg');
 				background-size: cover;
 				color: #fff;
+				transform-origin: top right;
+				transform: translatey(3vw);
+				transition: transform #{$duration}s, opacity #{$duration}s;
+				opacity: 0;
 
 				& h3{
 					font-size: clamp(28px, 2.5vw, 32px);
@@ -505,13 +657,33 @@ section{
 					min-width: 220px;
 				}
 			}
+
+			@for $i from 1 to 3{
+				&#card#{$i}{
+					transition-delay: #{($i - 1) * .2s};
+				}
+			}
+		}
+
+		&.in-sight{
+
+			& .info-card{
+
+				&#card1, &#card2, &#mobile-card2, &#card3{
+					opacity: 1;
+					transform: none;
+				}
+			}
 		}
 	}
 
 	&#case{
-		background-color: v.$color-paper;
 		overflow: hidden;
 		padding: 6vmax 0;
+		transition: background-color #{$duration}s, transform #{$duration}s;
+		background-color: #fff;
+
+		$angle: 90;
 
 		@media(max-width: v.$medium){
 			background-color: #fff;
@@ -559,6 +731,8 @@ section{
 			display: flex;
 			gap: v.$gutter-width;
 			flex-wrap: wrap;
+			transition: transform #{$duration}s, opacity #{$duration}s;
+			opacity: 0;
 
 			&:before{
 				content: '';
@@ -598,11 +772,14 @@ section{
 			& .icon-block-wrapper{
 
 				width: calc(33.3333% - v.$gutter-width);
+				transition: transform #{$duration}s;
 				z-index: 1;
 
 				& .icon-block{
 					text-align: center;
 					padding: 3vmax math.div(v.$gutter-width, 2);
+					transform-origin: center center;
+					transition: transform #{$duration}s;
 
 					@media(max-width: v.$extra-small){
 						text-align: left;
@@ -651,6 +828,56 @@ section{
 				}
 			}
 		}
+
+		& .section-circle{
+
+			transform: rotate(-#{$angle}deg);
+			
+			& .icon-block-wrapper{
+
+				& .icon-block{
+					transform: rotate(#{$angle}deg);
+				}
+				
+				&:nth-child(2){
+					
+					& .icon-block{
+						transform: rotate(#{$angle}deg) translateY(-5vw);
+					}
+				}
+
+				&:nth-child(5){
+					
+					& .icon-block{
+						transform: rotate(#{$angle}deg) translateY(5vw);
+					}
+				}
+			}
+		}
+
+		&.in-sight{
+			background-color: v.$color-paper;
+
+			& .section-circle{
+				transform: none;
+				opacity: 1;
+
+				& .icon-block-wrapper{
+					
+					& .icon-block{
+						transform: none;
+					}
+
+					&:nth-child(2) .icon-block{
+						transform: translateY(-5vw);
+					}
+					
+					&:nth-child(5) .icon-block{
+						transform: translateY(5vw);
+					}
+				}
+			}
+		}
 	}
 
 	&#about{
@@ -659,6 +886,25 @@ section{
 			font-weight: bold;
 			color: v.$primary;
 			font-size: clamp(18px, 3vw, 24px);
+			
+			& ~ p{
+				transform: translateY(40px);
+				opacity: 0;
+				transition: transform #{$duration}s, opacity #{$duration}s;
+			}
+		}
+
+		& .about-point{
+
+			@for $i from 1 through 3{
+
+				&:nth-child(#{$i}){
+
+					& p:last-of-type{
+						transition-delay: #{($i - 1) * .2s};
+					}
+				}
+			}
 		}
 
 		& details{
@@ -712,6 +958,18 @@ section{
 				padding: 1.25em;
 			}
 		}
+
+		&.in-sight{
+
+			
+			& .col{
+				
+				& .num ~ p{
+					opacity: 1;
+					transform: none;
+				}
+			}
+		}
 	}
 
 	&#map{
@@ -725,7 +983,7 @@ section{
 		
 		& .point-wrapper{
 			position: absolute;
-			transform: translate(-50%, -50%);
+			// transform: translate(-50%, -50%);
 			
 			&:hover{
 				z-index: 20;
@@ -872,13 +1130,35 @@ section{
 			background-size: auto 120%;
 		}
 
+		& .point-wrapper{
+			transition: transform #{$duration}s cubic-bezier(0.640, -0.310, 0.290, 1.290);
+			transform: translate(-50%, -50%) scale(0);
+
+			@for $i from 1 to 8{
+
+				&:nth-child(#{$i}){
+					transition-delay: #{($i - 1) * .2s};
+				}
+			}
+		}
+
+		&.in-sight .point-wrapper{
+			transform: translate(-50%, -50%) scale(1);
+		}
 	}
 
 	&#partner{
 		padding-top: 8vmax;
 		overflow: hidden;
 
+		& .container{
+			transform-style: preserve-3d;
+		}
+		
 		& .card{
+			transform: translatex(3vw);
+			transition: transform #{$duration}s, opacity #{$duration}s;
+			opacity: 0;
 
 			background-color: #fff;
 			@include card();
@@ -906,7 +1186,7 @@ section{
 				margin-top: 0;
 			}
 
-			& big{
+			& .big{
 				margin-bottom: 1em;
 				display: block;
 			}
@@ -953,6 +1233,11 @@ section{
 
 			}
 		}
+
+		&.in-sight .card{
+			opacity: 1;
+			transform: none;
+		}
 	}
 
 	&#tracks{
@@ -961,6 +1246,7 @@ section{
 			border-radius: clamp(15px, 4vw, 30px);
 			overflow: hidden;
 			background-color: #fff;
+			perspective: 50vw;
 			
 			& .track-list{
 				padding: clamp($minPad, 3vw, 40px);
@@ -976,8 +1262,8 @@ section{
 						display: flex;
 						align-items: center;
 						gap: 6px;
+						transition: transform #{$duration}s;
 					}
-
 				}
 			}
 
@@ -1004,6 +1290,8 @@ section{
 			& .scroll-wrapper{
 				overflow: auto;
 				position: relative;
+				perspective: 50vw;
+				transform-style: preserve-3d;
 
 				&::-webkit-scrollbar{
 					height: 4px;
@@ -1026,6 +1314,7 @@ section{
 					column-gap: 10px;
 					row-gap: 10px;
 					width: clamp(880px, 30vw, 100%);
+					transform-style: preserve-3d;
 
 					@media(min-width: 1800px){
 						width: 100%;
@@ -1036,6 +1325,15 @@ section{
 						padding: 6px 12px;
 						border-radius: 20px;
 						cursor: default;
+						transition: transform #{$duration}s, opacity #{$duration}s;
+						transform: translateZ(200px);
+						opacity: 0;
+
+						@for $i from 1 to 50{
+							&:nth-child(#{$i}){
+								transition-delay: #{($i - 1) * .05s};
+							}
+						}
 	
 						&.red-block{
 							background-color: #FFE6CE;
@@ -1088,22 +1386,29 @@ section{
 				margin-top: 0;
 			}
 		}
+
+		&.in-sight .card .scroll-wrapper .specialties .specialty{
+			opacity: 1;
+			transform: none;
+		}
 	}
 
 	&#remote{
 
+		overflow: hidden;
+
 		& .card-wrapper{
 
 			padding: 0 clamp(1px, 4vw, 20vw);
-
+			
 			& h2{
 				font-size: clamp(24px, 3vw, 46px);
 			}
-
+			
 			@media(max-width: v.$medium){
 				padding: 0;
 			}
-
+			
 			& .card{
 				position: relative;
 				background-color: v.$primary;
@@ -1111,6 +1416,9 @@ section{
 				border-radius: clamp(15px, 4vw, 30px);
 				padding-right: clamp(400px, 20vw, 450px);
 				overflow: hidden;
+				transition: opacity #{$duration}s, transform #{$duration}s;
+				transform: translatex(3vw);
+				opacity: 0;
 
 				& .card-content{
 					position: relative;
@@ -1166,9 +1474,23 @@ section{
 				}
 			}
 		}
+
+		&.in-sight{
+
+			& .card-wrapper{
+
+				& .card{
+					background-color: v.$primary;
+					transform: none;
+					opacity: 1;
+				}
+			}
+		}
 	}
 
 	&#more{
+
+		overflow: hidden;
 
 		& h2{
 			margin-top: 0;
@@ -1188,6 +1510,8 @@ section{
 				background-repeat: no-repeat, repeat;
 				background-position: bottom right;
 				border-radius: clamp(8px, 3vw, 30px);
+				transition: transform #{$duration}s, opacity #{$duration}s;
+				opacity: 0;
 				
 				@media(max-width: 1200px){
 					font-size: clamp(14px, 3vw, 22px);
@@ -1204,6 +1528,8 @@ section{
 				&.doc{
 					grid-column: 1 / 4;
 					background-image: url('../../img/rocket.png'), radial-gradient(circle at top left, #0174BA, #6EB5FB);
+					transform: translate(-2vw, -2vw);
+					transition-delay: 0;
 				}
 
 				&.binocle{
@@ -1211,17 +1537,23 @@ section{
 					aspect-ratio: 1 / 1;
 					background-image: url('../../img/binocle.png'), linear-gradient(to bottom, #0360A5, #299CDA);
 					background-size: 100% auto, auto;
+					transform: translate(2vw, -2vw);
+					transition-delay: .1s;
 				}
 
 				&.tetris{
 					grid-column: 2 / 4;
 					aspect-ratio: 1 / 1;
 					background-image: url('../../img/tetris.png'), linear-gradient(#FF6A00, #FF8C00);
+					transform: translate(-2vw, 2vw);
+					transition-delay: .2s;
 				}
 
 				&.key{
 					grid-column: 4 / 7;
 					background-image: url('../../img/keykap.png'), radial-gradient(circle at top left, #7eaf00, #BFEF57);
+					transform: translate(2vw, 2vw);
+					transition-delay: .3s;
 				}
 			}
 
@@ -1299,12 +1631,31 @@ section{
 				}
 			}
 		}
+		&.in-sight .cards-wrapper{
+
+			& .card{
+
+				&.doc, &.binocle, &.tetris, &.key{
+					transform: none;
+					opacity: 1;
+				}
+			}
+		}
 	}
 
 	&#news{
 
 		background-color: v.$color-paper;
 		overflow: hidden;
+		transform: translateY(6vw);
+		transition: transform #{$duration}s, opacity #{$duration}s;
+		opacity: 0;
+		
+		& ~ section{
+			transform: translateY(6vw);
+			transition: transform #{$duration}s, opacity #{$duration}s;
+			opacity: 0;
+		}
 
 		& .icon-telegram{
 			background-image: url(../../img/telegram-primary.svg);
@@ -1430,6 +1781,16 @@ section{
 				}
 			}
 		}
+
+		&.in-sight{
+			opacity: 1;
+			transform: none;
+
+			& ~ section{
+				opacity: 1;
+				transform: none;
+			}
+		}
 	}
 
 	&#contacts{
@@ -1482,7 +1843,7 @@ section{
 	
 				& .info-name{
 
-					& big{
+					& .big{
 						display: block;
 						font-size: $nameSize;
 						margin: .5em 0;
