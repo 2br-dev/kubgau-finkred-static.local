@@ -6109,6 +6109,37 @@ header .container nav {
     align-items: center;
 }
 
+header .container nav .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+@media (max-width: 450px) {
+    header .container nav .nav-left img {
+        width: 30px;
+        height: 53px;
+        -o-object-fit: cover;
+        object-fit: cover;
+        -o-object-position: left;
+        object-position: left;
+    }
+}
+
+header .container nav .nav-left .mainsite {
+    border: 1px solid #333;
+    color: #333;
+    line-height: 2em;
+    padding: 0 0.75em;
+    border-radius: 20px;
+    font-size: clamp(14px, 3vw, 18px);
+    transition: background-color 0.2s;
+}
+
+header .container nav .nav-left .mainsite:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
 header .container nav .nav-right {
     display: flex;
     align-items: center;

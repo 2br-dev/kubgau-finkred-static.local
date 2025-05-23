@@ -2460,6 +2460,76 @@ section#ymap {
     background-color: #ccc;
 }
 
+.doc-modal-wrapper {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    transition: opacity 0.4s;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.doc-modal-wrapper .modal {
+    background: #fff;
+    padding: clamp(5px, 2vw, 30px);
+    border-radius: clamp(5px, 2vw, 20px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.4s;
+    transform: translateY(4rem);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+}
+
+.doc-modal-wrapper .modal .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.doc-modal-wrapper .modal .modal-header h3 {
+    font-size: clamp(18px, 3vw, 24px);
+    margin: 0;
+}
+
+.doc-modal-wrapper .modal .modal-header a {
+    font-size: 32px;
+}
+
+.doc-modal-wrapper .modal .modal-content {
+    width: 900px;
+    margin-top: 2em;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    max-width: 85vw;
+}
+
+.doc-modal-wrapper .modal .modal-content iframe {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.doc-modal-wrapper .modal .modal-content .download {
+    margin-top: 1em;
+    text-align: center;
+}
+
+.doc-modal-wrapper.open {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.doc-modal-wrapper.open .modal {
+    transform: none;
+}
+
 @keyframes pulse {
     0% {
         transform: scale(1);

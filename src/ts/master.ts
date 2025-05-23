@@ -86,9 +86,28 @@ let isScrollingRight:boolean;
 
 	document.querySelectorAll('.scroll-link').forEach(el => el.addEventListener('click', scrollTo));
 
+	document.querySelectorAll('.doc-preview').forEach(el => {
+		el.addEventListener('click', openDoc);
+	})
+
+	document.querySelector('.doc-close')?.addEventListener('click', e => {
+		e.preventDefault();
+		let modal = (e.target as HTMLElement).parentElement?.parentElement?.parentElement;
+		modal?.classList.remove('open');
+	})
+
 	renderTracks();
 
 })();
+
+function openDoc(e:MouseEvent){
+	e.preventDefault();
+	const docModal = document.querySelector('.doc-modal-wrapper');
+	const frame = docModal?.querySelector('iframe');
+
+	docModal?.classList.add('open');
+
+}
 
 function intersector(entries:IntersectionObserverEntry[], observer:IntersectionObserver){
 	entries.forEach(entry => {

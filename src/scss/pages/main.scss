@@ -2038,6 +2038,79 @@ section{
 	}
 }
 
+.doc-modal-wrapper{
+
+	position: fixed;
+	inset: 0;
+	z-index: 9999;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: rgba(#fff, .8);
+	transition: opacity .4s;
+	opacity: 0;
+	pointer-events: none;
+
+	& .modal{
+
+		background: #fff;
+		padding: clamp(5px, 2vw, 30px);
+		border-radius: clamp(5px, 2vw, 20px);
+		box-shadow: 0 8px 20px rgba(black, .2);
+		transition: transform .4s;
+		transform: translateY(4rem);
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: column;
+		height: 80vh;
+
+		& .modal-header{
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+
+			& h3{
+				font-size: clamp(18px, 3vw, 24px);
+				margin: 0;
+			}
+
+			& a{
+				font-size: 32px;
+			}
+		}
+
+		& .modal-content{
+			width: 900px;
+			margin-top: 2em;
+			display: flex;
+			flex-grow: 1;
+			flex-direction: column;
+			max-width: 85vw;
+
+			& iframe{
+				width: 100%;
+				height: 100%;
+				display: block;
+			}
+
+			& .download{
+				margin-top: 1em;
+				text-align: center;
+
+			}
+		}
+	}
+
+	&.open{
+		opacity: 1;
+		pointer-events: all;
+
+		& .modal{
+			transform: none;
+		}
+	}
+}
+
 @keyframes pulse{
 	0%{
 		transform: scale(1);
